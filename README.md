@@ -1,0 +1,1 @@
+These are little c++ projects to learn the language
