@@ -5,11 +5,7 @@
 #include <fstream>
 #include <vector>
 
-// TODO: Make String + Paths work again (best: remove istringstream)
-
 namespace fs = std::filesystem;
-
-
 
 std::string pathAsString(const fs::path& p) { return p.stem().string() + p.extension().string(); }
 
@@ -82,9 +78,13 @@ int main()
 
         std::vector<std::string> inputs = splitInput(command);
 
-        // TODO: Check for bounds later
         if (inputs.size() >= 1) keyword = inputs[0];
         if (inputs.size() >= 2) param1 = inputs[1];
+
+        for (size_t i = 2; i < inputs.size(); ++i)
+        {
+            std::cout << "Unused parameter: " << inputs[i] << std::endl;
+        }
 
         if (keyword == "ls")
         {
