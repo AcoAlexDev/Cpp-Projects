@@ -32,7 +32,7 @@ class SortingVisualizerPrefab {
         {
             float x_step {width / static_cast<float>(MAX_AMOUNT)};
             for (size_t i {}; i < MAX_AMOUNT; i++){
-                float height_rect {v[i] * height * 0.9f};
+                float height_rect {v[i] * height};
                 DrawRectangle(posX + x_step * i, posY + height - height_rect, x_step, height_rect, WHITE);
             }
         }
@@ -91,21 +91,39 @@ private:
     void sort_step() override
     {   
         if (right >= MAX_AMOUNT - 1) return;
-        float smallestVal = v[right];
-        size_t smallestId = right;
-        for (size_t i = right; i < MAX_AMOUNT; ++i)
+
+        if (v[i] < smallestVal)
         {
-            if (v[i] < smallestVal)
-            {
-                smallestVal = v[i];
-                smallestId = i;
-            }
+            smallestVal = v[i];
+            smallestId = i;
         }
-        v[smallestId] = v[right];
-        v[right] = smallestVal;
-        right++;
+        i++;
+        if (i == MAX_AMOUNT)
+        {
+            v[smallestId] = v[right];
+            v[right] = smallestVal;
+            right++;
+            i = right;
+            smallestVal = v[right];
+            smallestId = right;
+        }
+
+        // for (size_t i = right; i < MAX_AMOUNT; ++i)
+        // {
+        //     if (v[i] < smallestVal)
+        //     {
+        //         smallestVal = v[i];
+        //         smallestId = i;
+        //     }
+        // }
+        // v[smallestId] = v[right];
+        // v[right] = smallestVal;
+        // right++;
     }
     size_t right {0};
+    size_t i {0};
+    float smallestVal = v[right];
+    size_t smallestId = right;
 };
 
 class BubbleSort : public SortingVisualizerPrefab
@@ -117,18 +135,32 @@ private:
     {   
         if (right == 0) return;
 
-        for (int i = 0; i < right; ++i)
+        if (v[i + 1] < v[i])
         {
-            if (v[i + 1] < v[i])
-            {
-                float s = v[i+1];
-                v[i+1] = v[i];
-                v[i] = s;
-            }
+            float s = v[i+1];
+            v[i+1] = v[i];
+            v[i] = s;
         }
-        right--;
+        i++;
+        if (i == right)
+        {
+            i = 0;
+            right--;
+        }
+
+        // for (int i = 0; i < right; ++i)
+        // {
+        //     if (v[i + 1] < v[i])
+        //     {
+        //         float s = v[i+1];
+        //         v[i+1] = v[i];
+        //         v[i] = s;
+        //     }
+        // }
+        // right--;
     }
     int right {MAX_AMOUNT - 1};
+    int i {0};
 };
 
 class GnomeSort : public SortingVisualizerPrefab

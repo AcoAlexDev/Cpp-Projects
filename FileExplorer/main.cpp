@@ -121,6 +121,19 @@ int main()
             }
 
         }
+        else if (keyword == "create")
+        {
+            std::ofstream file;
+            fs::path filePath = fullPath(p, param1);
+            file.open(filePath);
+            if (!file.is_open())
+            {
+                std::cout << "Could not create file at path: " << filePath << std::endl;
+                continue;
+            }
+            std::cout << "Created file at path: " << filePath << std::endl;
+            file.close();
+        }
         else if (keyword == "q")
         {
             break;

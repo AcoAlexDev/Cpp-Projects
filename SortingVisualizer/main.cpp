@@ -5,15 +5,16 @@
 
 static constexpr int WIDTH {1000};
 static constexpr int HEIGHT {1000};
+static constexpr int BORDER {10};
 
 int main()
 {
     InitWindow(WIDTH, HEIGHT, "SortingVisualizer");
-    SetTargetFPS(60);
-    InsertionSort instance{0, 0, 500, 500};
-    SelectionSort instance2{500, 0, 500, 500};
-    BubbleSort instance3{0, 500, 500, 500};
-    GnomeSort instance4{500, 500, 500, 500};
+    SetTargetFPS(120);
+    InsertionSort instance{0 + BORDER, 0 + BORDER, 500 - BORDER * 2, 500 - BORDER * 2};
+    SelectionSort instance2{500 + BORDER, 0 + BORDER, 500 - BORDER * 2, 500 - BORDER * 2};
+    BubbleSort instance3{0 + BORDER, 500 + BORDER, 500 - BORDER * 2, 500 - BORDER * 2};
+    GnomeSort instance4{500 + BORDER, 500 + BORDER, 500 - BORDER * 2, 500 - BORDER * 2};
     while(!WindowShouldClose())
     {
         PollInputEvents();
